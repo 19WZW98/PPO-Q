@@ -139,7 +139,7 @@ if __name__ == "__main__":
 
     pdb.set_trace()
     circ_data = CircDataset(
-        root="./data/1.data.dags", split="train", split_ratio=[0.8, 0.1, 0.1]
+        root="./tensorboard_data/1.tensorboard_data.dags", split="train", split_ratio=[0.8, 0.1, 0.1]
     )
     # plt.plot(pd.raw['a'][0])
     # plt.show()

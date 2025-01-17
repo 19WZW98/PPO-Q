@@ -141,7 +141,7 @@ def bayes_opt(
     cur_count, cur_best_w, cur_best_y = N_initial, None, 1e10
     while cur_count < N_sim:
 
-        # build gaussian process on the normalized data
+        # build gaussian process on the normalized tensorboard_data
         wrk_mean, wrk_std = X.mean(axis=0), X.std(axis=0)
         model = GPR(
             kernel=ConstantKernel(1, (1e-9, 1e9)) * RBF(1.0, (1e-5, 1e5)),

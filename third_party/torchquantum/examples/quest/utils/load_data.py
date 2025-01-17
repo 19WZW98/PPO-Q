@@ -33,10 +33,10 @@ from utils.circ_dag_converter import circ_to_dag_with_data
 
 
 def load_data_from_raw(file_name):
-    file = open("data/raw_data_qasm/" + file_name, "rb")
+    file = open("tensorboard_data/raw_data_qasm/" + file_name, "rb")
     data = pickle.load(file)
     file.close()
-    print("Size of the data: ", len(data))
+    print("Size of the tensorboard_data: ", len(data))
     return raw_pyg_converter(data)
 
 
@@ -45,7 +45,7 @@ def load_data_from_pyg(file_name):
         return load_normalized_data(file_name)
     except Exception as e:
         try:
-            file = open("data/pyg_data/" + file_name, "rb")
+            file = open("tensorboard_data/pyg_data/" + file_name, "rb")
             normalize_data(file_name)
         except Exception as e:
             load_data_and_save(file_name)
@@ -54,19 +54,19 @@ def load_data_from_pyg(file_name):
 
 
 def load_normalized_data(file_name):
-    file = open("data/normalized_data/" + file_name, "rb")
+    file = open("tensorboard_data/normalized_data/" + file_name, "rb")
     data = pickle.load(file)
     file.close()
-    print("Size of the data: ", len(data))
+    print("Size of the tensorboard_data: ", len(data))
     return data
 
 
 def normalize_data(file_name):
-    file = open("data/pyg_data/" + file_name, "rb")
+    file = open("tensorboard_data/pyg_data/" + file_name, "rb")
     data = pickle.load(file)
     file.close()
     if configs.evalmode:
-        file = open("data/normalized_data/" + configs.dataset.name + "meta", "rb")
+        file = open("tensorboard_data/normalized_data/" + configs.dataset.name + "meta", "rb")
         meta = pickle.load(file)
         file.close()
         print(meta)
@@ -98,21 +98,21 @@ def normalize_data(file_name):
                 1e-8 + stds_gf
             )
             data[k].liu_features = (dag.liu_features - means_liu) / (1e-8 + stds_liu)
-        file = open("data/normalized_data/" + file_name + "meta", "wb")
+        file = open("tensorboard_data/normalized_data/" + file_name + "meta", "wb")
         pickle.dump([means, stds, means_gf, stds_gf], file)
         file.close()
-    file = open("data/normalized_data/" + file_name, "wb")
+    file = open("tensorboard_data/normalized_data/" + file_name, "wb")
     pickle.dump(data, file)
     file.close()
 
 
 def load_data_and_save(file_name):
-    file = open("data/raw_data_qasm/" + file_name, "rb")
+    file = open("tensorboard_data/raw_data_qasm/" + file_name, "rb")
     data = pickle.load(file)
     file.close()
     pyg_data = raw_pyg_converter(data)
     random.shuffle(pyg_data)
-    file = open("data/pyg_data/" + file_name, "wb")
+    file = open("tensorboard_data/pyg_data/" + file_name, "wb")
     pickle.dump(pyg_data, file)
     file.close()
 

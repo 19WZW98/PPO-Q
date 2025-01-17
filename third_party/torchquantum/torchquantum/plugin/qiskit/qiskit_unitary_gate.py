@@ -35,32 +35,32 @@
 # class UnitaryGate(Gate):
 #     """Class for representing unitary gates"""
 #
-#     def __init__(self, data, label=None):
+#     def __init__(self, tensorboard_data, label=None):
 #         """Create a gate from a numeric unitary matrix.
 #
 #         Args:
-#             data (matrix or Operator): unitary operator.
+#             tensorboard_data (matrix or Operator): unitary operator.
 #             label (str): unitary name for backend [Default: None].
 #
 #         Raises:
-#             ExtensionError: if input data is not an N-qubit unitary operator.
+#             ExtensionError: if input tensorboard_data is not an N-qubit unitary operator.
 #         """
-#         if hasattr(data, "to_matrix"):
+#         if hasattr(tensorboard_data, "to_matrix"):
 #             # If input is Gate subclass or some other class object that has
 #             # a to_matrix method this will call that method.
-#             data = data.to_matrix()
-#         elif hasattr(data, "to_operator"):
+#             tensorboard_data = tensorboard_data.to_matrix()
+#         elif hasattr(tensorboard_data, "to_operator"):
 #             # If input is a BaseOperator subclass this attempts to convert
 #             # the object to an Operator so that we can extract the underlying
-#             # numpy matrix from `Operator.data`.
-#             data = data.to_operator().data
+#             # numpy matrix from `Operator.tensorboard_data`.
+#             tensorboard_data = tensorboard_data.to_operator().tensorboard_data
 #         # Convert to numpy array in case not already an array
-#         data = numpy.array(data, dtype=complex)
+#         tensorboard_data = numpy.array(tensorboard_data, dtype=complex)
 #         # Check input is unitary
-#         if not is_unitary_matrix(data, atol=1e-5):
+#         if not is_unitary_matrix(tensorboard_data, atol=1e-5):
 #             raise ExtensionError("Input matrix is not unitary.")
 #         # Check input is N-qubit matrix
-#         input_dim, output_dim = data.shape
+#         input_dim, output_dim = tensorboard_data.shape
 #         num_qubits = int(numpy.log2(input_dim))
 #         if input_dim != output_dim or 2**num_qubits != input_dim:
 #             raise ExtensionError("Input matrix is not an N-qubit operator.")
@@ -69,7 +69,7 @@
 #         self._qasm_definition = None
 #         self._qasm_def_written = False
 #         # Store instruction params
-#         super().__init__("unitary", num_qubits, [data], label=label)
+#         super().__init__("unitary", num_qubits, [tensorboard_data], label=label)
 #
 #     def __eq__(self, other):
 #         if not isinstance(other, UnitaryGate):
@@ -152,7 +152,7 @@
 #         from qiskit.quantum_info import Operator
 #
 #         # hack to correct global phase; should fix to prevent need for correction here
-#         pmat = Operator(iso.inverse()).data @ cmat
+#         pmat = Operator(iso.inverse()).tensorboard_data @ cmat
 #         diag = numpy.diag(pmat)
 #         if not numpy.allclose(diag, diag[0]):
 #             raise ExtensionError("controlled unitary generation failed")
@@ -188,7 +188,7 @@
 #         current_reg = 0
 #
 #         gates_def = ""
-#         for gate in self.definition.data:
+#         for gate in self.definition.tensorboard_data:
 #
 #             # add regs from this gate to the overall set of params
 #             for reg in gate[1] + gate[2]:

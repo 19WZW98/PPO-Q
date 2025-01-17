@@ -85,7 +85,7 @@ for file_name in files:
         data.append(data_p)
         # print(fidelity)
     file_open = open(
-        "./app_real_data_test/" + sys.argv[1] + file_name[:-4] + "data", "wb"
+        "./app_real_data_test/" + sys.argv[1] + file_name[:-4] + "tensorboard_data", "wb"
     )
     pickle.dump(data, file_open)
     file_open.close()

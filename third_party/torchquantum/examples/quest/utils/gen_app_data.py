@@ -96,10 +96,10 @@ for file_name in files:
 
         data_p = [transpiled, my_dict, fidelity]
         data.append(data_p)
-    file_open = open("../app_data_test/" + file_name[:-4] + "data", "wb")
+    file_open = open("../app_data_test/" + file_name[:-4] + "tensorboard_data", "wb")
     pickle.dump(data, file_open)
     file_open.close()
     all_data = all_data + deepcopy(data)
-    file_open = open("../app_data_test/ALL_APP_DATA.data", "wb")
+    file_open = open("../app_data_test/ALL_APP_DATA.tensorboard_data", "wb")
     pickle.dump(all_data, file_open)
     file_open.close()

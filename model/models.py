@@ -58,6 +58,11 @@ class Critic(nn.Module):
         super().__init__()
 
         if len(kwargs) > 4:
+            self.using_quantum_model = True
+        else:
+            self.using_quantum_model = False
+
+        if self.using_quantum_model:
             # Initialize quantum model if more than 4 arguments are passed
             self._init_quantum_model(**kwargs)
         else:
@@ -66,6 +71,9 @@ class Critic(nn.Module):
 
     def _init_classical_model(self, state_dim: int, hidden_dims: [int], activation: nn.Module = None,
                               use_orthogonal_init: bool = True) -> None:
+
+
+
         if activation is None:
             activation = nn.ReLU
 
@@ -112,11 +120,14 @@ class Critic(nn.Module):
         self.softmax_layer = nn.Softmax(dim=1)
 
     def forward(self, x):
-        x = self.pre_encoding_net(x)
-        x = self.pqc_layer(x)
-        x = self.post_processing_net(x)
-        if not self.is_critic:
-            x = self.softmax_layer(x)
+        if self.using_quantum_model:
+            x = self.pre_encoding_net(x)
+            x = self.pqc_layer(x)
+            x = self.post_processing_net(x)
+            if not self.is_critic:
+                x = self.softmax_layer(x)
+        else:
+            x = self.net(x)
         return x
 
 class ContinuousActor(nn.Module):

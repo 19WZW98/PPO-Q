@@ -34,7 +34,7 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 import random
 import numpy as np
 
-# data is cos(theta)|000> + e^(j * phi)sin(theta) |111>
+# tensorboard_data is cos(theta)|000> + e^(j * phi)sin(theta) |111>
 
 from torchpack.datasets.dataset import Dataset
 

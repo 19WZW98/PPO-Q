@@ -195,7 +195,7 @@ def main():
 
     # Number of qubit 1 - 10
     # Number of gates < 500
-    # Number of data points 2000
+    # Number of tensorboard_data points 2000
     # 500 circuits, 500 noise model
 
     # backend = FakeGuadalupe()

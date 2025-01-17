@@ -58,9 +58,9 @@ class VowelRecognition(VisionDataset):
 
     url = (
         "http://archive.ics.uci.edu/ml/machine-learning-databases"
-        "/undocumented/connectionist-bench/vowel/vowel-context.data"
+        "/undocumented/connectionist-bench/vowel/vowel-context.tensorboard_data"
     )
-    filename = "vowel-context.data"
+    filename = "vowel-context.tensorboard_data"
     folder = "vowel"
 
     def __init__(
@@ -79,7 +79,7 @@ class VowelRecognition(VisionDataset):
             root (str): Root directory of the dataset.
             train (bool, optional): Determines whether to load the training set or the test set. 
                 Defaults to True (training set).
-            transform (callable, optional): A function/transform that takes in the raw data and returns a transformed version.
+            transform (callable, optional): A function/transform that takes in the raw tensorboard_data and returns a transformed version.
                 Defaults to None.
             target_transform (callable, optional): A function/transform that takes in the target and returns a transformed version.
                 Defaults to None.
@@ -94,7 +94,7 @@ class VowelRecognition(VisionDataset):
             RuntimeError: If the dataset is not found or corrupted and download is not enabled.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
         """
 
         root = os.path.join(os.path.expanduser(root), self.folder)
@@ -127,15 +127,15 @@ class VowelRecognition(VisionDataset):
         self.data, self.targets = self.load(train=train)
 
     def process_raw_data(self) -> None:
-        """Process the raw data of the dataset.
+        """Process the raw tensorboard_data of the dataset.
 
-        This method is called during initialization to load and process the raw data into a suitable format for the dataset.
+        This method is called during initialization to load and process the raw tensorboard_data into a suitable format for the dataset.
 
         Returns:
             None.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
             >>> dataset.process_raw_data()
         """
 
@@ -160,15 +160,15 @@ class VowelRecognition(VisionDataset):
         )
 
     def _load_dataset(self) -> Tuple[torch.Tensor, torch.Tensor]:
-        """Load the dataset from the raw data file.
+        """Load the dataset from the raw tensorboard_data file.
 
         Returns:
             data_train, targets_train, data_test, targets_test
-            tuple: A tuple containing the data tensor and the target tensor.
+            tuple: A tuple containing the tensorboard_data tensor and the target tensor.
 
         Examples:
-            >>> data, targets = dataset._load_dataset()
-            >>> data.shape
+            >>> tensorboard_data, targets = dataset._load_dataset()
+            >>> tensorboard_data.shape
             torch.Size([528, 10])
             >>> targets.shape
             torch.Size([528])
@@ -192,16 +192,16 @@ class VowelRecognition(VisionDataset):
         """Split the dataset into training and test sets.
 
         Args:
-            data (torch.Tensor): The input data tensor.
+            data (torch.Tensor): The input tensorboard_data tensor.
             targets (torch.Tensor): The target tensor.
 
         Returns:
-            tuple: A tuple containing the training data, training targets, test data, and test targets.
+            tuple: A tuple containing the training tensorboard_data, training targets, test tensorboard_data, and test targets.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
-            >>> data, targets = dataset._load_dataset()
-            >>> data_train, targets_train, data_test, targets_test = dataset._split_dataset(data, targets)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
+            >>> tensorboard_data, targets = dataset._load_dataset()
+            >>> data_train, targets_train, data_test, targets_test = dataset._split_dataset(tensorboard_data, targets)
         """
 
         from sklearn.model_selection import train_test_split
@@ -221,16 +221,16 @@ class VowelRecognition(VisionDataset):
         """Preprocess the dataset by applying PCA and scaling transformations.
 
         Args:
-            data_train (torch.Tensor): The training data tensor.
-            data_test (torch.Tensor): The test data tensor.
+            data_train (torch.Tensor): The training tensorboard_data tensor.
+            data_test (torch.Tensor): The test tensorboard_data tensor.
 
         Returns:
-            tuple: A tuple containing the preprocessed training data and test data.
+            tuple: A tuple containing the preprocessed training tensorboard_data and test tensorboard_data.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
-            >>> data, targets = dataset._load_dataset()
-            >>> data_train, targets_train, data_test, targets_test = dataset._split_dataset(data, targets)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
+            >>> tensorboard_data, targets = dataset._load_dataset()
+            >>> data_train, targets_train, data_test, targets_test = dataset._split_dataset(tensorboard_data, targets)
             >>> preprocessed_train_data, preprocessed_test_data = dataset._preprocess_dataset(data_train, data_test)
         """
 
@@ -267,9 +267,9 @@ class VowelRecognition(VisionDataset):
         """Save the preprocessed dataset to disk.
 
         Args:
-            data_train (torch.Tensor): The preprocessed training data tensor.
+            data_train (torch.Tensor): The preprocessed training tensorboard_data tensor.
             targets_train (torch.Tensor): The training targets tensor.
-            data_test (torch.Tensor): The preprocessed test data tensor.
+            data_test (torch.Tensor): The preprocessed test tensorboard_data tensor.
             targets_test (torch.Tensor): The test targets tensor.
             processed_dir (str): The directory to save the processed dataset.
 
@@ -277,9 +277,9 @@ class VowelRecognition(VisionDataset):
             None.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
-            >>> data, targets = dataset._load_dataset()
-            >>> data_train, targets_train, data_test, targets_test = dataset._split_dataset(data, targets)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
+            >>> tensorboard_data, targets = dataset._load_dataset()
+            >>> data_train, targets_train, data_test, targets_test = dataset._split_dataset(tensorboard_data, targets)
             >>> preprocessed_train_data, preprocessed_test_data = dataset._preprocess_dataset(data_train, data_test)
             >>> dataset._save_dataset(preprocessed_train_data, targets_train, preprocessed_test_data, targets_test, 'processed')
             Processed dataset saved
@@ -298,19 +298,19 @@ class VowelRecognition(VisionDataset):
     def load(self, train: bool = True):
         """Load the dataset.
 
-        This method loads the dataset from the processed data and returns the data and target labels.
+        This method loads the dataset from the processed tensorboard_data and returns the tensorboard_data and target labels.
 
         Args:
             train (bool, optional): Determines whether to load the training set or the test set.
                 Defaults to True (training set).
 
         Returns:
-            data: Loaded data.
+            tensorboard_data: Loaded tensorboard_data.
             targets: Target labels.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
-            >>> data, targets = dataset.load(train=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
+            >>> tensorboard_data, targets = dataset.load(train=True)
         """
 
         filename = "training.pt" if train else "test.pt"
@@ -331,7 +331,7 @@ class VowelRecognition(VisionDataset):
             None
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
             >>> dataset.download()
         """
 
@@ -351,7 +351,7 @@ class VowelRecognition(VisionDataset):
             bool: True if the dataset is found and intact, False otherwise.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
             >>> dataset._check_integrity()
             True
         """
@@ -365,7 +365,7 @@ class VowelRecognition(VisionDataset):
             int: Number of items in the dataset.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
             >>> len(dataset)
             143
         """
@@ -379,10 +379,10 @@ class VowelRecognition(VisionDataset):
             index (int): Index of the item.
 
         Returns:
-            tuple: A tuple containing the transformed item data and its corresponding target class index.
+            tuple: A tuple containing the transformed item tensorboard_data and its corresponding target class index.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
             >>> img, target = dataset[0]
         """
 
@@ -395,7 +395,7 @@ class VowelRecognition(VisionDataset):
             str: A string indicating the dataset's split.
 
         Examples:
-            >>> dataset = VowelRecognition(root='data', train=True, transform=None, download=True)
+            >>> dataset = VowelRecognition(root='tensorboard_data', train=True, transform=None, download=True)
             >>> dataset.extra_repr()
             'Split: Train'
         """
@@ -409,11 +409,11 @@ class VowelRecognitionDataset:
     Attributes:
         root (str): Root directory of the dataset.
         split (str): Split name ('train', 'valid', or 'test').
-        test_ratio (float): Ratio of data to use for testing.
-        train_valid_split_ratio (List[float]): Ratio of data to use for training and validation split.
+        test_ratio (float): Ratio of tensorboard_data to use for testing.
+        train_valid_split_ratio (List[float]): Ratio of tensorboard_data to use for training and validation split.
         data (Dataset): Loaded dataset.
-        resize (int): Size to resize the input data.
-        binarize (bool): Whether to binarize the input data.
+        resize (int): Size to resize the input tensorboard_data.
+        binarize (bool): Whether to binarize the input tensorboard_data.
         binarize_threshold (float): Threshold value for binarization.
         digits_of_interest (List[int]): List of digits of interest.
         n_instance (int): Number of instances in the dataset.
@@ -435,10 +435,10 @@ class VowelRecognitionDataset:
         Args:
             root (str): Root directory of the dataset.
             split (str): Split name ('train', 'valid', or 'test').
-            test_ratio (float): Ratio of data to use for testing.
-            train_valid_split_ratio (List[float]): Ratio of data to use for training and validation split.
-            resize (int): Size to resize the input data.
-            binarize (bool): Whether to binarize the input data.
+            test_ratio (float): Ratio of tensorboard_data to use for testing.
+            train_valid_split_ratio (List[float]): Ratio of tensorboard_data to use for training and validation split.
+            resize (int): Size to resize the input tensorboard_data.
+            binarize (bool): Whether to binarize the input tensorboard_data.
             binarize_threshold (float): Threshold value for binarization.
             digits_of_interest (List[int]): List of digits of interest.
             
@@ -450,7 +450,7 @@ class VowelRecognitionDataset:
 
         Examples:
             >>> dataset = VowelRecognitionDataset(
-            >>>     root='data',
+            >>>     root='tensorboard_data',
             >>>     split='train',
             >>>     test_ratio=0.2,
             >>>     train_valid_split_ratio=[0.8, 0.2],
@@ -537,7 +537,7 @@ class VowelRecognitionDataset:
             index (int): Index of the instance to retrieve.
 
         Returns:
-            Dict[str, Tensor]: A dictionary containing the input data and label.
+            Dict[str, Tensor]: A dictionary containing the input tensorboard_data and label.
 
         Examples:
             >>> instance = dataset[0]
@@ -573,7 +573,7 @@ class VowelRecognitionDataset:
             index (int): Index of the instance to retrieve.
 
         Returns:
-            Dict[str, Tensor]: A dictionary containing the input data and label.
+            Dict[str, Tensor]: A dictionary containing the input tensorboard_data and label.
 
         Examples:
             >>> instance = dataset(0)
@@ -619,7 +619,7 @@ class Vowel(Dataset):
             None.
         
         Examples:
-            >>> dataset = Vowel(root='data', test_ratio=0.2, train_valid_split_ratio=[0.8, 0.2])
+            >>> dataset = Vowel(root='tensorboard_data', test_ratio=0.2, train_valid_split_ratio=[0.8, 0.2])
         """
 
         self.root = root

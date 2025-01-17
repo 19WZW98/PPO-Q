@@ -89,7 +89,7 @@
 #
 #     def _convert_circuit_binds(self, circuit, binds):
 #         parameterizations = []
-#         for index, inst_tuple in enumerate(circuit.data):
+#         for index, inst_tuple in enumerate(circuit.tensorboard_data):
 #             if inst_tuple[0].is_parameterized():
 #                 for bind_pos, param in enumerate(inst_tuple[0].params):
 #                     if param in binds:
@@ -335,13 +335,13 @@
 #     def _format_results(output):
 #         """Format C++ simulator output for constructing Result"""
 #         for result in output["results"]:
-#             data = result.get("data", {})
+#             tensorboard_data = result.get("tensorboard_data", {})
 #             metadata = result.get("metadata", {})
 #             save_types = metadata.get("result_types", {})
 #             save_subtypes = metadata.get("result_subtypes", {})
-#             for key, val in data.items():
+#             for key, val in tensorboard_data.items():
 #                 if key in save_types:
-#                     data[key] = format_save_type(
+#                     tensorboard_data[key] = format_save_type(
 #                         val, save_types[key], save_subtypes[key]
 #                     )
 #         return Result.from_dict(output)
@@ -446,7 +446,7 @@
 #             ):
 #                 updated_circ = False
 #                 new_data = []
-#                 for inst, qargs, cargs in circ.data:
+#                 for inst, qargs, cargs in circ.tensorboard_data:
 #                     if isinstance(inst, QuantumChannelInstruction):
 #                         updated_circ = True
 #                         if not updated_noise:
@@ -468,7 +468,7 @@
 #                         new_data.append((inst, qargs, cargs))
 #                 if updated_circ:
 #                     new_circ = circ.copy()
-#                     new_circ.data = new_data
+#                     new_circ.tensorboard_data = new_data
 #                     run_circuits[idx] = new_circ
 #                     optypes[idx].discard(QuantumChannelInstruction)
 #

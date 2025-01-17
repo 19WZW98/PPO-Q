@@ -43,7 +43,7 @@ from utils.load_data import load_data_and_save
 
 
 def main() -> None:
-    # load_data_and_save("huge.data")
+    # load_data_and_save("huge.tensorboard_data")
     seed = 42
     random.seed(seed)
     np.random.seed(seed)

@@ -98,7 +98,7 @@ class LayerRegressionDataset:
     Attributes:
         data: The dataset.
         n_instance (int): The number of instances.
-        output: The output data.
+        output: The output tensorboard_data.
     """
     
     def __init__(self):

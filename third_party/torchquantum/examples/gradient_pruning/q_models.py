@@ -271,7 +271,7 @@ class QMultiFCModel0(tq.QuantumModule):
                 ),
             )
             # logger.info(f"[use_qiskit]={use_qiskit},
-            # expectation:\n {x.data}")
+            # expectation:\n {x.tensorboard_data}")
 
         if getattr(self.arch, "output_len", None) is not None:
             x = x.reshape(bsz, -1, self.arch.output_len).sum(-1)

@@ -730,7 +730,7 @@ def get_success_rate(properties, transpiled_circ):
     #         gate_error_dict[gate_error[0]][tuple(gate_error[1])] = gate_error[2]
     #
     # success_rate = 1
-    # for gate in transpiled_circ.data:
+    # for gate in transpiled_circ.tensorboard_data:
     #     gate_success_rate = (
     #         1 - gate_error_dict[gate[0].name][tuple(map(lambda x: x.index, gate[1]))]
     #     )
@@ -1023,7 +1023,7 @@ def parameter_shift_gradient(model, input_data, expectation_operator, shift_rate
     gradient for the ith parameter =( expectation_value(the_ith_parameter + shift_rate)-expectation_value(the_ith_parameter - shift_rate) ) *0.5 
     Args: 
         model(tq.QuantumModule): the model that you want to use, which includes the quantum device and the parameters
-        input(torch.tensor): the input data that you are using
+        input(torch.tensor): the input tensorboard_data that you are using
         expectation_operator(str): the observable that you want to calculate the expectation value of, usually the Z operator 
         (i.e 'ZZZ' for 3 qubits or 3 wires)
         shift_rate(float , optional): the rate that you would like to shift the parameter with at every iteration, by default pi*0.5

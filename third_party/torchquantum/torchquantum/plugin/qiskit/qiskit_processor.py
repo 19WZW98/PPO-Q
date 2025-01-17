@@ -57,16 +57,16 @@
 #         return circuits
 #
 #
-# def run_job_worker(data):
+# def run_job_worker(tensorboard_data):
 #     while True:
 #         try:
-#             job = execute(**(data[0]))
-#             qiskit_verbose = data[1]
+#             job = execute(**(tensorboard_data[0]))
+#             qiskit_verbose = tensorboard_data[1]
 #             if qiskit_verbose:
 #                 job_monitor(job, interval=1)
 #             result = job.result()
 #             counts = result.get_counts()
-#             # circ_num = len(data[0]['parameter_binds'])
+#             # circ_num = len(tensorboard_data[0]['parameter_binds'])
 #             # logger.info(
 #             #     f'run job worker successful, circuit number = {circ_num}')
 #             break

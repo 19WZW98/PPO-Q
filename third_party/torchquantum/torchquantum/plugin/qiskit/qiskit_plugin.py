@@ -536,7 +536,7 @@ def tq2qiskit(
         elif module.name == "U2":
             from qiskit.circuit.library import U2Gate
             circ.append(U2Gate(phi=module.params[0].data.cpu().numpy()[0], lam=module.params[0].data.cpu().numpy()[0]), module.wires, [])
-            # circ.u2(*list(module.params[0].data.cpu().numpy()), *module.wires)
+            # circ.u2(*list(module.params[0].tensorboard_data.cpu().numpy()), *module.wires)
         elif module.name == "U3":
             circ.u3(*list(module.params[0].data.cpu().numpy()), *module.wires)
         elif module.name == "CU3":
@@ -806,7 +806,7 @@ def qiskit2tq(circ: QuantumCircuit):
 #     unitary_qiskit = result.get_unitary(circ)
 #
 #     unitary_tq = m.get_unitary(q_dev)
-#     unitary_tq = switch_little_big_endian_matrix(unitary_tq.data.numpy())
+#     unitary_tq = switch_little_big_endian_matrix(unitary_tq.tensorboard_data.numpy())
 #
 #     circ_from_m = tq2qiskit(q_dev, m)
 #     assert circ_from_m == circ
@@ -971,7 +971,7 @@ class TestModuleParameterized(tq.QuantumModule):
 #     unitary_qiskit = result.get_unitary(circuit)
 #
 #     unitary_tq = test_module.get_unitary(q_dev, inputs)
-#     unitary_tq = switch_little_big_endian_matrix(unitary_tq.data.numpy())
+#     unitary_tq = switch_little_big_endian_matrix(unitary_tq.tensorboard_data.numpy())
 #
 #     print(unitary_qiskit)
 #     print(unitary_tq)
@@ -987,7 +987,7 @@ class TestModuleParameterized(tq.QuantumModule):
 #     test_module = TestModuleParameterized()
 #     test_module(q_dev, inputs)
 #     unitary_tq = test_module.get_unitary(q_dev, inputs)
-#     unitary_tq = switch_little_big_endian_matrix(unitary_tq.data.numpy())
+#     unitary_tq = switch_little_big_endian_matrix(unitary_tq.tensorboard_data.numpy())
 #
 #     circuit, params = tq2qiskit_parameterized(q_dev, test_module.encoder.func_list)
 #     binds = {}

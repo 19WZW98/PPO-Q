@@ -52,7 +52,7 @@ def get_global_features(circ):
 
 
 def circ_to_dag_with_data(circ, mydict, n_qubit=10):
-    # data format: [node_type(onehot)]+[qubit_idx(one or two-hot)]+[T1,T2,T1,T2,gate error,roerror,roerror]+[gate_idx]
+    # tensorboard_data format: [node_type(onehot)]+[qubit_idx(one or two-hot)]+[T1,T2,T1,T2,gate error,roerror,roerror]+[gate_idx]
     circ = circ.copy()
     circ = RemoveBarriers()(circ)
 
@@ -196,7 +196,7 @@ def build_my_noise_dict(prop):
 #     simulator = AerSimulator.from_backend(backend)
 #     simulator.run(circ)
 #     result = simulator.run(circ).result()
-#     noise_dm = result.data()["density_matrix"].data
+#     noise_dm = result.tensorboard_data()["density_matrix"].tensorboard_data
 #     print(noise_dm)
 
 

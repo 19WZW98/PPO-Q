@@ -44,7 +44,8 @@ class PPO:
                                        input_dim=args.state_dim,
                                        output_dim=args.action_dim,
                                        ini_method=args.ini_method).to(DEVICE)
-        self.critic = Critic(args.state_dim, [64, 64], nn.Tanh).to(DEVICE)
+
+        self.critic = Critic(state_dim=args.state_dim, hidden_dims=[64, 64], activation=nn.Tanh).to(DEVICE)
 
         self.optimizer_actor = torch.optim.Adam(self.actor.parameters(), lr=self.lr_a, eps=1e-5)
         self.optimizer_critic = torch.optim.Adam(self.critic.parameters(), lr=self.lr_c, eps=1e-5)
